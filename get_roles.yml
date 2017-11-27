@@ -1,0 +1,3 @@
+---
+- src: https://github.com/Cuttlerat/ansible-common
+  name: preinstall

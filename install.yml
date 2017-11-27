@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  roles:
+    - preinstall
+    - packages
+    - user
+    - i3
+    - bash_configs
+    - emacs

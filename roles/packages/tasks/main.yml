@@ -1,0 +1,44 @@
+---
+- name: Install packages
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apvlv
+    - ansible
+    - wget
+    - bind
+    - firefox
+    - feh
+    - mpv
+    - cron
+    - bash-completion
+    - termite
+    - emacs
+    - pavucontrol
+    - dmenu2
+    - scrot
+    - screenfetch
+    - xclip
+    - git
+    - htop
+    - pulseaudioLight
+    - rtorrent
+    - docker
+    - docker_compose
+    - xmodmap
+    - i3
+    - i3status
+    - i3lock
+    - speedtest-cli
+    - gimp
+    - libreoffice
+    - whois
+    - virtualbox
+    - ttf_corefonts
+    - ttf_inconsolata
+    - ttf_unifont
+    - ttf_terminus
+    - ttf_awesome
+    - ttf_powerline
+

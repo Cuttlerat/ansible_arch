@@ -1,0 +1,75 @@
+---
+- name: Check that ssh key in authorized_keys
+  authorized_key:
+    user: "{{ ansible_ssh_user }}"
+    state: present
+    key: "{{ lookup('file', ansible_ssh_private_key_file + '.pub') }}"
+  when: ansible_ssh_private_key_file is defined
+
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+  with_items:
+    - python-pip
+    - python-setuptools
+
+- name: Install pip dependencies
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - "docker-py=={{ docker_py_version }}"
+
+- name: Check docker is not installed
+  command: which docker
+  ignore_errors: yes
+  register: docker_status
+
+- name: Download docker installer
+  get_url:
+      url: https://get.docker.com
+      dest: /tmp/docker_install.sh
+      mode: 0700
+      owner: root
+  when: docker_status.rc == 1
+
+- name: Install docker
+  command: sh /tmp/docker_install.sh
+  when: docker_status.rc == 1
+
+- name: Check docker-compose is not installed
+  command: which docker-compose
+  ignore_errors: yes
+  register: compose_status
+
+- name: Get host information for compose download
+  command: bash -c "echo `uname -s`-`uname -m`"
+  register: host_arch
+  when: compose_status.rc == 1
+
+- name: Download docker-compose
+  get_url:
+      url: "https://github.com/docker/compose/releases/download/1.17.0/docker-compose-{{ host_arch.stdout }}"
+      dest: /usr/local/bin/docker-compose
+      mode: 0111
+      owner: root
+  when:
+    - compose_status.rc == 1
+    - host_arch is defined
+    - host_arch.stdout is defined
+
+- name: Make sure docker is running
+  service:
+      name: docker
+      state: started
+      enabled: yes
+
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+- name: Delete docker installer
+  file:
+      path: /tmp/docker_install.sh
+      state: absent

@@ -1,0 +1,17 @@
+---
+- name: Create i3 directory
+  file:
+    path: "/home/{{ username }}/.{{ item }}"
+    state: directory
+  with_items:
+    - i3
+    - i3status
+
+- name: Copy i3 configs
+  copy:
+    src: "{{ item }}_config"
+    dest: "/home/{{ username }}/.{{ item }}/config"
+  with_items:
+    - i3
+    - i3status
+  

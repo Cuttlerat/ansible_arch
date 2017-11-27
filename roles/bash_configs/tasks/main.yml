@@ -1,0 +1,31 @@
+---
+- name: Get bash configs from git
+  git:
+    repo: "https://github.com/Cuttlerat/bash_dump"
+    path: "/tmp/bash_configs"
+
+- name: Copy bash_configs
+  copy:
+    src: "/tmp/bash_configs/Bashrc/{{ item }}"
+    dest: "/home/{{ username }}/.{{ item }}"
+  with_items:
+    - bashrs
+    - bash_aliases
+    - bash_functions
+    - bash_profile
+    - bash_prompt
+    - sshrc
+    - inputr
+
+- name: Delete temp directory
+  file:
+    path: "/tmp/bash_configs"
+    state: absent
+
+- name: Copy x11 configs
+  copy:
+    src: "{{ item }}"
+    dest: "/home/{{ username }}/.{{ item }}"
+  with_items:
+    - Xauthority
+    - xsession

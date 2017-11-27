@@ -1,0 +1,5 @@
+---
+- name: Get emacs config from git
+  git:
+    repo: 'https://github.com/Cuttlerat/emacs.d'
+    dest: '/home/{{ username }}/.emacs.d'
