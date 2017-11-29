@@ -1,8 +1,8 @@
 ---
 - hosts: localhost
   roles:
-          #    - preinstall
-          #    - packages
+    - preinstall
+    - packages
     - user
     - i3
     - bash_configs

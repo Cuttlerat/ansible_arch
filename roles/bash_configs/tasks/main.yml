@@ -32,10 +32,10 @@
 
 - name: Ensure termite directory is exists
   file:
-    path: "/home/{{ uesrname }}/.config/termite"
+    path: "/home/{{ username }}/.config/termite"
     state: directory
 
 - name: Copy termite config
   copy:
     src: "termite_config"
-    dest: "/home/{{ uesrname }}/.config/termite/config"
+    dest: "/home/{{ username }}/.config/termite/config"
