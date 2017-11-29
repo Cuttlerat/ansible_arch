@@ -24,3 +24,9 @@
   with_items:
     - id_rsa
     - id_rsa.pub
+
+- name: Add user to sudo
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^rat'
+    line: 'rat      ALL=(ALL:ALL) ALL'

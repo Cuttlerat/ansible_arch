@@ -24,17 +24,10 @@
   ignore_errors: yes
   register: docker_status
 
-- name: Download docker installer
-  get_url:
-      url: https://get.docker.com
-      dest: /tmp/docker_install.sh
-      mode: 0700
-      owner: root
-  when: docker_status.rc == 1
-
 - name: Install docker
-  command: sh /tmp/docker_install.sh
-  when: docker_status.rc == 1
+  pacman:
+    name: docker
+    state: present
 
 - name: Check docker-compose is not installed
   command: which docker-compose

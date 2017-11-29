@@ -16,29 +16,18 @@
     - termite
     - emacs
     - pavucontrol
-    - dmenu2
+    - dmenu
     - scrot
     - screenfetch
     - xclip
     - git
     - htop
-    - pulseaudioLight
+    - pulseaudio
     - rtorrent
-    - docker
-    - docker_compose
-    - xmodmap
-    - i3
-    - i3status
-    - i3lock
     - speedtest-cli
     - gimp
-    - libreoffice
     - whois
-    - virtualbox
-    - ttf_corefonts
-    - ttf_inconsolata
-    - ttf_unifont
-    - ttf_terminus
-    - ttf_awesome
-    - ttf_powerline
+    - awesome-terminal-fonts
+    - xorg-xinit
+    - slim
 
