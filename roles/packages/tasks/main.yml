@@ -30,4 +30,5 @@
     - awesome-terminal-fonts
     - xorg-xinit
     - slim
-
+    - openssh
+    - ttf-dejavu

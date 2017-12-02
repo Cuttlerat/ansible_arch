@@ -16,6 +16,11 @@
     - bash_prompt
     - sshrc
     - inputrc
+    
+- name: Copy bin files
+  copy:
+    src: "/tmp/bash_configs/Everyday\ Scripts/"
+    dest: "/usr/local/bin"
 
 - name: Delete temp directory
   file:
@@ -39,3 +44,12 @@
   copy:
     src: "termite_config"
     dest: "/home/{{ username }}/.config/termite/config"
+
+- name: Add monitor hotplug rule
+  lineinfile:
+    path: /etc/udev/rules.d/95-monitor.rules
+    line: 'KERNEL=="card0", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/rat/.Xauthority", RUN+="/usr/local/bin/change_monitor"'
+    regexp: '^KERNEL=="card0"'
+    insertafter: EOF
+    create: yes
+    state: present
