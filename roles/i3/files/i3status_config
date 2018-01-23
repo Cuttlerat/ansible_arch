@@ -21,6 +21,7 @@ order += "ethernet _first_"
 order += "battery 0"
 order += "volume master"
 order += "cpu_usage"
+order += "cpu_temperature 0"
 order += "tztime local"
 
 wireless _first_ {
@@ -50,6 +51,12 @@ volume master{
 
 cpu_usage {
 	format = " %usage"
+}
+
+cpu_temperature 0 {
+	format = " %degrees"
+        max_threshold = 55
+        format_above_threshold = " %degrees"
 }
 
 run_watch DHCP {
