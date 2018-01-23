@@ -55,7 +55,7 @@ cpu_usage {
 
 cpu_temperature 0 {
 	format = " %degrees"
-        max_threshold = 55
+        max_threshold = 60
         format_above_threshold = " %degrees"
 }
 
