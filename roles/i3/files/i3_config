@@ -12,6 +12,7 @@
 set $mod Mod4
 
 bindsym Print exec prtscr
+bindsym --release $mod+Print exec prtscr_s
 
 
 focus_follows_mouse no
