@@ -11,9 +11,10 @@
 
 set $mod Mod4
 
-bindsym Print exec prtscr
-bindsym --release $mod+Print exec prtscr_s
-
+#bindsym --release Print exec prtscr
+#bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+bindsym --release Print exec scrot -u '/tmp/foo.png' -e 'xclip -selection clipboard -t image/png -i /tmp/foo.png && rm /tmp/foo.png'
+bindsym --release $mod+Print exec scrot -s '/tmp/foo.png' -e 'xclip -selection clipboard -t image/png -i /tmp/foo.png && rm /tmp/foo.png'
 
 focus_follows_mouse no
 #title_format center
@@ -133,14 +134,14 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 hide_edge_borders both
 
-set $Locker "setxkbmap -layout us && i3lock -c 000000 -n && setxkbmap -layout us,ru -option grp:alt_shift_toggle && xmodmap -e 'clear Lock' && xmodmap -e 'keycode 0x42=Escape'"
+set $Locker i3lock -c 000000 -n
 
 set $mode_system [l]Lock|[e]Logout|[s]Suspend|[h]Hibernate|[r]Reboot|[S]Shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym l exec --no-startup-id "$Locker", mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id "systemctl suspend && $Locker", mode "default"
+    bindsym h exec --no-startup-id "systemctl hibernate && $Locker", mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
@@ -201,7 +202,7 @@ bar {
 	status_command i3status -c ~/.i3status/config
 }
 
-#exec --no-startup-id sudo berat
+exec --no-startup-id /usr/local/change_monitor
 
 new_window none
 #new_window pixel 1
@@ -217,3 +218,5 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #000000
 
 
+#output LVDS-1 pos 0,0 res 1280x800
+#output VGA-1 pos 1280,0 res 1366x768
