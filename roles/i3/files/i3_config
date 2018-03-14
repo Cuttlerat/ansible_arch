@@ -134,7 +134,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 hide_edge_borders both
 
-set $Locker i3lock -c 000000 -n
+#set $Locker i3lock -c 000000 -n
+set $Locker setxkbmap -layout us && i3lock -c 000000 -n && setxkbmap -layout us,ru -option grp:alt_shift_toggle && xmodmap -e 'clear Lock' && xmodmap -e 'keycode 0x42=Escape'
 
 set $mode_system [l]Lock|[e]Logout|[s]Suspend|[h]Hibernate|[r]Reboot|[S]Shutdown
 mode "$mode_system" {
